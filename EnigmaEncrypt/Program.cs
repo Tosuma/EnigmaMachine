@@ -90,7 +90,7 @@ namespace EnigmaEncrypt
             int[] intArrayRotor1 = CharArrayToIntArray(encryptArrayRotor1Forward, "intArrayRotor1");
             int[] intArrayRotor2 = CharArrayToIntArray(encryptArrayRotor2, "intArrayRotor2");
             int[] intArrayRotor3 = CharArrayToIntArray(encryptArrayRotor3, "intArrayRotor3");
-            int[] intArrayReflector = CharArrayToIntArray(encryptArrayReflector, "intArrayReflector");
+            int[] intArrayReflector = CharArrayToIntArray(encryptArrayReflector, "intArrayReflector"); 
 
             // Testing for errors in reflector (tranposition)
             bool testResult;
