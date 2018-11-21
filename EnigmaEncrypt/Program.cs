@@ -18,20 +18,74 @@ namespace EnigmaEncrypt
         //};
 
         // Rotor1 Forward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = JGDQOXUSCAMIFRVTPNEWKBLZYH - (Permutation)
-        static char[] encryptArrayRotor1Forward = new char[]
-        {
-            'E','K','M','F','L','G','D','Q','V','Z',
-            'N','T','O','W','Y','H','X','U','S','P',
-            'A','I','B','R','C','J'
-        };
+        //static char[] encryptArrayRotor1Forward = new char[]
+        //{
+        //    'E','K','M','F','L','G','D','Q','V','Z',
+        //    'N','T','O','W','Y','H','X','U','S','P',
+        //    'A','I','B','R','C','J'
+        //};
 
-        // Rotor1 backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = JGDQOXUSCAMIFRVTPNEWKBLZYH - (Permutation)
-        static char[] encryptArrayRotor1Backward = new char[]
+        // Rotor1 Forward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = JGDQOXUSCAMIFRVTPNEWKBLZYH - (Permutation)
+        static public char[,] encryptArrayRotor1Forward = new char[,] {
+            {'A','J'},{'B','G'},{'C','D'},{'D','Q'},{'E','O'},{'F','X'},{'G','U'},{'H','S'},{'I','C'},{'J','A'},
+            {'K','M'},{'L','I'},{'M','F'},{'N','R'},{'O','V'},{'P','T'},{'Q','P'},{'R','N'},{'S','E'},{'T','W'},
+            {'U','K'},{'V','B'},{'W','L'},{'X','Z'},{'Y','Y'},{'Z','H'}};
+
+        // Rotor scrambling forward
+        static public char ForwardEncryption(char[,] encryptArrayRotor, char letter, int position)
         {
-            'E','K','M','F','L','G','D','Q','V','Z',
-            'N','T','O','W','Y','H','X','U','S','P',
-            'A','I','B','R','C','J'
-        };
+            // Step 1: Input char
+            int letterAsInteger = (int)letter - 65;
+            
+            // Step 2: Entry from keyboard to position on rotor disc
+            int entryAtRotor = (letterAsInteger + position) % 26;
+            
+            // Step 3: Output from rotor
+            char encryptedChar = encryptArrayRotor[entryAtRotor, 1];
+            
+            // Step 4: Translating output from rotor to disc
+            //encryptedChar = (char)(encryptedChar - position);
+            //if (encryptedChar < 65)
+            //{
+            //    encryptedChar = (char)(encryptedChar + 26);
+            //}
+            
+
+
+            Console.WriteLine($"RotorForward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
+            return encryptedChar;
+
+        }
+
+        // Rotor scrambling backward
+        static public char BackwardEncryption(char[,] encryptArrayRotor, char letter, int position)
+        {
+            // Step 1: Input char
+            int letterAsInteger = (int)letter - 65;
+            // Step 2: Entry from keyboard to position on rotor disc
+            int entryAtRotor = (letterAsInteger + position) % 26;
+            if (entryAtRotor < 0)
+            {
+                entryAtRotor += 26;
+            }
+            // Step 3: Output from rotor
+            char encryptedChar = encryptArrayRotor[entryAtRotor, 0];
+            // Step 4: Translating output from 
+
+            //encryptedChar = (char)(encryptedChar + position);
+            //if (encryptedChar > 90)
+            //{
+            //    encryptedChar = (char)(encryptedChar - 26);
+            //}
+
+            Console.WriteLine($"RotorBackward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
+            return encryptedChar;
+
+        }
+
+
+        // Rotor1 backward configuration - JGDQOXUSCAMIFRVTPNEWKBLZYH = ABCDEFGHIJKLMNOPQRSTUVWXYZ- (Permutation)
+        //                                 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
         //// Rotor2 Forward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = NTZPSFBOKMWRCJDIVLAEYUXHGQ - (Permutation)
         //static int[] encryptArrayRotor2 = new int[]
@@ -86,28 +140,28 @@ namespace EnigmaEncrypt
         {
             Console.WriteLine("Enigma Starting!");
 
-            // Calling function to change char array to int Array
-            int[] intArrayRotor1 = CharArrayToIntArray(encryptArrayRotor1Forward, "intArrayRotor1");
-            int[] intArrayRotor2 = CharArrayToIntArray(encryptArrayRotor2, "intArrayRotor2");
-            int[] intArrayRotor3 = CharArrayToIntArray(encryptArrayRotor3, "intArrayRotor3");
-            int[] intArrayReflector = CharArrayToIntArray(encryptArrayReflector, "intArrayReflector"); 
+            //// Calling function to change char array to int Array
+            //int[] intArrayRotor1 = CharArrayToIntArray(encryptArrayRotor1Forward, "intArrayRotor1");
+            //int[] intArrayRotor2 = CharArrayToIntArray(encryptArrayRotor2, "intArrayRotor2");
+            //int[] intArrayRotor3 = CharArrayToIntArray(encryptArrayRotor3, "intArrayRotor3");
+            //int[] intArrayReflector = CharArrayToIntArray(encryptArrayReflector, "intArrayReflector");
 
-            // Testing for errors in reflector (tranposition)
-            bool testResult;
-            Console.WriteLine("Testing Enigma configuration for reflector");
-            testResult = TesterOfArray(intArrayReflector);
-            if (testResult == false)
-            {
-                Console.ReadKey(false);
-                return;
-            }
-            Console.WriteLine("Transposition in reflector is working");
+            //// Testing for errors in reflector (tranposition)
+            //bool testResult;
+            //Console.WriteLine("Testing Enigma configuration for reflector");
+            //testResult = TesterOfArray(intArrayReflector);
+            //if (testResult == false)
+            //{
+            //    Console.ReadKey(false);
+            //    return;
+            //}
+            //Console.WriteLine("Transposition in reflector is working");
 
-            // Writing department
+            // Section for collecting text input
             Console.Write("Please write your message to be encrypted:");
             string input = Console.ReadLine();
 
-            input = input.ToLower();
+            input = input.ToUpper();
 
             Console.Write("Please write rotor 1's start position (0-25): ");
             string startPosition1AsString = Console.ReadLine();
@@ -130,23 +184,24 @@ namespace EnigmaEncrypt
             int currentPosition3 = startPosition3;
 
             // testing for other chars than a-z
-            foreach (Char c in input)
+            foreach (Char letter in input)
             {
-                if (((int)c < 97) || ((int)c > 122))
+                if (((int)letter < 65) || ((int)letter > 90))
                 {
-                    outputString = outputString + c;
+                    outputString = outputString + letter;
                     continue;
                 }
 
                 // Scrambling the letter (pathway through the Enigma)
                 char output;
-                output = RotorForward(intArrayRotor1, currentPosition2, c);
+
+                output = ForwardEncryption(encryptArrayRotor1Forward, letter, currentPosition1);
                 //output = RotorForward(intArrayRotor2, currentPosition2, output);
                 //output = RotorForward(intArrayRotor3, currentPosition3, output);
-                output = Reflector(intArrayReflector, output);
+                output = Reflector(encryptArrayReflector, output);
                 //output = RotorBackward(intArrayRotor3, currentPosition3, output);
                 //output = RotorBackward(intArrayRotor2, currentPosition2, output);
-                output = RotorBackward(intArrayRotor1, currentPosition1, output);
+                output = BackwardEncryption(encryptArrayRotor1Forward, letter, currentPosition1);
 
                 outputString = outputString + output;
 
@@ -201,48 +256,48 @@ namespace EnigmaEncrypt
         }
 
         // The scrambling rotor forward
-        static char RotorForward(int[] encryptArray, int position, char letter)
-        {
-            int letterAsInteger = (int)letter - 97;
-            int rotatedPosition = (letterAsInteger + position) % 26;
-            char encryptedChar = (char)(encryptArray[rotatedPosition] + 97);
-            Console.WriteLine($"RotorForward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
-            return encryptedChar;
-        }
+        //static char RotorForward(int[] encryptArray, int position, char letter)
+        //{
+        //    int letterAsInteger = (int)letter - 97;
+        //    int rotatedPosition = (letterAsInteger + position) % 26;
+        //    char encryptedChar = (char)(encryptArray[rotatedPosition] + 97);
+        //    Console.WriteLine($"RotorForward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
+        //    return encryptedChar;
+        //}
 
         // The scrambling reflector
-        static char Reflector(int[] encryptArray, char letter)
+        static char Reflector(char[] encryptArray, char letter)
         {
-            int letterAsInteger = (int)letter - 97;
-            char encryptedChar = (char)(encryptArray[letterAsInteger] + 97);
+            int letterAsInteger = letter - 65;
+            char encryptedChar = encryptArray[letterAsInteger];
             Console.WriteLine($"Reflector: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
             return encryptedChar;
         }
 
         // The scrambling rotor backwards  --- Der er en fejl i denne del - måske noget med tælleren i forhold til rotorposition.
-        static char RotorBackward(int[] encryptArray, int position, char letter)
-        {
-            int letterAsInteger = (int)letter - 97;
-            int letterPosition = (letterAsInteger) % 26;
-            int i = 0;
+        //static char RotorBackward(int[] encryptArray, int position, char letter)
+        //{
+        //    int letterAsInteger = (int)letter - 97;
+        //    int letterPosition = (letterAsInteger) % 26;
+        //    int i = 0;
 
-            foreach (int currentInt in encryptArray)
-            {
-                if (currentInt == letterPosition)
-                {
-                    int offset = i - position;
-                    if (offset < 0)
-                    {
-                        offset = 26 + offset;
-                    }
-                    char encryptedChar = (char)(offset + 97);
-                    Console.WriteLine($"Rotor Backward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
-                    return encryptedChar;
-                }
-                i++;
-            }
-            Console.WriteLine("Error in RotorBackward");
-            return 'c';
-        }
+        //    foreach (int currentInt in encryptArray)
+        //    {
+        //        if (currentInt == letterPosition)
+        //        {
+        //            int offset = i - position;
+        //            if (offset < 0)
+        //            {
+        //                offset = 26 + offset;
+        //            }
+        //            char encryptedChar = (char)(offset + 97);
+        //            Console.WriteLine($"Rotor Backward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
+        //            return encryptedChar;
+        //        }
+        //        i++;
+        //    }
+        //    Console.WriteLine("Error in RotorBackward");
+        //    return 'c';
+        //}
     }
 }
