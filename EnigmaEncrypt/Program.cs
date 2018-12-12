@@ -36,20 +36,20 @@ namespace EnigmaEncrypt
         {
             // Step 1: Input char
             int letterAsInteger = (int)letter - 65;
-            
+
             // Step 2: Entry from keyboard to position on rotor disc
             int entryAtRotor = (letterAsInteger + position) % 26;
-            
+
             // Step 3: Output from rotor
             char encryptedChar = encryptArrayRotor[entryAtRotor, 1];
-            
+
             // Step 4: Translating output from rotor to disc
             //encryptedChar = (char)(encryptedChar - position);
             //if (encryptedChar < 65)
             //{
             //    encryptedChar = (char)(encryptedChar + 26);
             //}
-            
+
 
 
             Console.WriteLine($"RotorForward: {letter} ({(int)letter}) => {encryptedChar} ({(int)encryptedChar})");
@@ -82,6 +82,7 @@ namespace EnigmaEncrypt
             return encryptedChar;
 
         }
+
 
 
         // Rotor1 backward configuration - JGDQOXUSCAMIFRVTPNEWKBLZYH = ABCDEFGHIJKLMNOPQRSTUVWXYZ- (Permutation)
@@ -136,7 +137,7 @@ namespace EnigmaEncrypt
         };
 
 
-        static void Main(string[] args)
+        static void Main_old(string[] args)
         {
             Console.WriteLine("Enigma Starting!");
 
