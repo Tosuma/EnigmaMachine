@@ -45,7 +45,6 @@ namespace EnigmaEncrypt
             16, 17, 24, 21, 18, 15
         };
 
-        //CHECK ALLE ARRAYS FOR KORREKT POSITIONER !!!
         // Rotor3 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = TAGBPCSDQEUFVNZHYIXJWLRKOM - (Permutation) NOT the same as the forward!
         static public int[] encryptArrayRotor3Backward = new int[]
         {
