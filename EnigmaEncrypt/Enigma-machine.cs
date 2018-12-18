@@ -13,7 +13,7 @@ namespace EnigmaEncrypt
             16, 6, 15, 2, 0, 8
         };
 
-        // Rotor1 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = JVICSMBZLAUWKREQDNHPGOTFYX - (Permutation) NOT the same as the forward!
+        // Rotor1 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = JVICSMBZLAUWKREQDNHPGOTFYX - (Permutation)
         static public int[] encryptArrayRotor1Backward = new int[]
         {
             9, 20, 6, 25, 14, 7, 21, 18, 3, 17,
@@ -29,7 +29,7 @@ namespace EnigmaEncrypt
             21, 3, 9, 24, 16, 5
         };
 
-        // Rotor2 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = AJPCZWRLFBDKOTYUQGENHXMIVS - (Permutation) NOT the same as the forward!
+        // Rotor2 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = AJPCZWRLFBDKOTYUQGENHXMIVS - (Permutation)
         static public int[] encryptArrayRotor2Backward = new int[]
         {
             0, 8, 13, 25, 21, 17, 11, 4, 23, 18,
@@ -45,7 +45,7 @@ namespace EnigmaEncrypt
             16, 17, 24, 21, 18, 15
         };
 
-        // Rotor3 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = TAGBPCSDQEUFVNZHYIXJWLRKOM - (Permutation) NOT the same as the forward!
+        // Rotor3 Backward configuration - ABCDEFGHIJKLMNOPQRSTUVWXYZ = TAGBPCSDQEUFVNZHYIXJWLRKOM - (Permutation)
         static public int[] encryptArrayRotor3Backward = new int[]
         {
             19, 25, 4, 24, 11, 23, 12, 22, 8, 21,
