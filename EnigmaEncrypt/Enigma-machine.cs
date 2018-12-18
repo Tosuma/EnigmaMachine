@@ -162,6 +162,8 @@ namespace EnigmaEncrypt
             int startPosition3;
             int.TryParse(startPosition3AsString, out startPosition3);
 
+            Console.WriteLine("");
+
             string outputString = "";
             int currentPosition1 = startPosition1;
             int currentPosition2 = startPosition2;
@@ -178,6 +180,7 @@ namespace EnigmaEncrypt
 
                 // Scrambling the letter (pathway through the Enigma)
                 char output;
+                Console.WriteLine($"Letter:  { letter}");
 
                 output = ForwardEncryption(encryptArrayRotor1Forward, letter, currentPosition1);
                 output = ForwardEncryption(encryptArrayRotor2Forward, output, currentPosition2);
@@ -186,6 +189,8 @@ namespace EnigmaEncrypt
                 output = BackwardEncryption(encryptArrayRotor3Backward, output, currentPosition3);
                 output = BackwardEncryption(encryptArrayRotor2Backward, output, currentPosition2);
                 output = BackwardEncryption(encryptArrayRotor1Backward, output, currentPosition1);
+
+                Console.WriteLine("");
 
                 outputString = outputString + output;
 
@@ -204,7 +209,6 @@ namespace EnigmaEncrypt
                 }
             }
 
-            Console.WriteLine("");
             Console.WriteLine("Your message has been copied to your clipboard");
             Clipboard.SetText(outputString);
             Console.WriteLine("Your message is as follows:");
